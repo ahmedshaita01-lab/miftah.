@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miftāḥ — Taqwā</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Surface palette */
+  --bg: #F7F8FB;
+  --card: #FFFFFF;
+  --card-soft: #FAFBFD;
+
+  /* Ink palette */
+  --ink: #0F172A;
+  --ink-soft: #475569;
+  --ink-mute: #94A3B8;
+
+  /* Border */
+  --border: #E2E8F0;
+  --border-soft: #EEF2F7;
+
+  /* Accent */
+  --accent: #4F46E5;
+  --accent-soft: #EEF0FF;
+  --accent-hover: #4338CA;
+
+  /* Type colors */
+  --pflicht-bg: #4F46E5;
+  --pflicht-fg: #FFFFFF;
+  --option-bg: #FEF3C7;
+  --option-fg: #92400E;
+
+  /* Rating colors */
+  --rating-good-bg: #DCFCE7;
+  --rating-good-fg: #166534;
+  --rating-mid-bg: #FEF3C7;
+  --rating-mid-fg: #854D0E;
+  --rating-bad-bg: #FEE2E2;
+  --rating-bad-fg: #991B1B;
+
+  /* Shadows — soft, layered */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 1px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --arab: 'Amiri', 'Traditional Arabic', serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.005em;
+}
+
+/* === Top bar === */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(247, 248, 251, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.topbar-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-family: var(--arab);
+  font-size: 18px;
+  line-height: 1;
+  box-shadow: var(--shadow-md);
+}
+
+.search-bar {
+  flex: 1;
+  max-width: 380px;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 9px 14px 9px 38px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  transition: all 0.15s;
+}
+
+.search-bar input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.search-bar svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--ink-mute);
+}
+
+.topbar-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.topbar-nav button {
+  background: transparent;
+  border: none;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.topbar-nav button:hover {
+  background: var(--card);
+  color: var(--ink);
+}
+
+/* === Main layout === */
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 1000px) {
+  .shell {
+    grid-template-columns: 1fr 320px;
+    gap: 28px;
+  }
+  .shell > .main { grid-column: 1; }
+  .shell > .aside { grid-column: 2; }
+}
+
+/* === Breadcrumb === */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-mute);
+  margin-bottom: 4px;
+}
+
+.breadcrumb a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover { color: var(--accent); }
+
+.breadcrumb .sep { opacity: 0.5; }
+
+/* === Hero card === */
+.hero {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-md);
+  display: grid;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 28px 22px; }
+  .hero-main { grid-template-columns: 1fr; }
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+
+.hero-text .pron {
+  font-size: 15px;
+  color: var(--ink-mute);
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  margin-bottom: 14px;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  letter-spacing: 0;
+}
+
+.hero-arab {
+  font-family: var(--arab);
+  font-size: 88px;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: 0;
+  direction: rtl;
+  text-align: right;
+  font-weight: 400;
+}
+
+@media (max-width: 600px) {
+  .hero-arab { font-size: 64px; text-align: center; }
+  .hero-text h1 { font-size: 36px; }
+}
+
+/* === Quick stats === */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-soft);
+}
+
+@media (max-width: 700px) {
+  .quick-stats { grid-template-columns: 1fr; }
+}
+
+.qstat {
+  display: grid;
+  gap: 4px;
+}
+
+.qstat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.qstat-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.qstat-value .ar {
+  font-family: var(--arab);
+  font-size: 17px;
+  margin-right: 4px;
+}
+
+/* === Modul filter toolbar === */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 4px;
+}
+
+.toolbar-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.filter-pills {
+  display: flex;
+  gap: 4px;
+  background: var(--border-soft);
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.filter-pills button {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  transition: all 0.15s;
+}
+
+.filter-pills button.active {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+/* === Module cards === */
+.modules {
+  display: grid;
+  gap: 16px;
+}
+
+.mod-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+  transition: box-shadow 0.2s, transform 0.2s;
+  scroll-margin-top: 80px;
+}
+
+.mod-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.mod-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mod-head-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mod-num {
+  width: 32px;
+  height: 32px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.mod-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.mod-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mod-badge.pflicht {
+  background: var(--pflicht-bg);
+  color: var(--pflicht-fg);
+}
+
+.mod-badge.option {
+  background: var(--option-bg);
+  color: var(--option-fg);
+}
+
+.mod-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.mod-body p {
+  margin-bottom: 12px;
+}
+
+.mod-body p:last-child {
+  margin-bottom: 0;
+}
+
+.mod-body strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.term {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.translation {
+  background: var(--option-bg);
+  color: var(--option-fg);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+
+.ar-inline {
+  font-family: var(--arab);
+  font-size: 1.2em;
+  vertical-align: -1px;
+  direction: rtl;
+  display: inline-block;
+  unicode-bidi: isolate;
+}
+
+/* hide based on filter */
+body.filter-pflicht .mod-card[data-type="option"] { display: none; }
+
+/* === Form grid === */
+.form-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 10px 20px;
+  font-size: 14px;
+}
+
+.form-grid dt {
+  color: var(--ink-mute);
+  font-weight: 500;
+}
+
+.form-grid dd .arab {
+  font-family: var(--arab);
+  font-size: 22px;
+  line-height: 1;
+  direction: rtl;
+}
+
+.form-grid dd .mono {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 13px;
+  background: var(--card-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* === Quran cards === */
+.quran-card {
+  background: linear-gradient(135deg, #FAFBFD 0%, #F0F2F8 100%);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 14px 0;
+  border-left: 3px solid var(--accent);
+}
+
+.quran-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  background: var(--accent);
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.quran-text {
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* === Equivalence table === */
+.equiv-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.equiv-row {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 16px;
+  padding: 14px 16px;
+  background: var(--card-soft);
+  border-radius: 10px;
+  align-items: center;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .equiv-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+.equiv-name {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.equiv-desc {
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.equiv-rating {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.equiv-rating.good { background: var(--rating-good-bg); color: var(--rating-good-fg); }
+.equiv-rating.mid { background: var(--rating-mid-bg); color: var(--rating-mid-fg); }
+.equiv-rating.bad { background: var(--rating-bad-bg); color: var(--rating-bad-fg); }
+
+/* === Example cards === */
+.examples {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.ex-card {
+  background: var(--card-soft);
+  border-radius: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-soft);
+}
+
+.ex-context {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.ex-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* === Aside (sidebar) === */
+.aside {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+@media (min-width: 1000px) {
+  .aside {
+    position: sticky;
+    top: 80px;
+    align-self: start;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+}
+
+.aside-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+}
+
+.aside-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 14px;
+}
+
+/* === Navigation in aside === */
+.nav-list {
+  list-style: none;
+  display: grid;
+  gap: 2px;
+}
+
+.nav-list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.nav-list a:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.nav-list .nav-num {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--border-soft);
+  border-radius: 5px;
+  color: var(--ink-mute);
+}
+
+.nav-list a:hover .nav-num {
+  background: var(--accent);
+  color: white;
+}
+
+.nav-list .nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink-mute);
+  margin-left: auto;
+  opacity: 0.6;
+}
+
+.nav-list .nav-dot.pflicht {
+  background: var(--accent);
+  opacity: 1;
+}
+
+/* === Connection visualization === */
+.connect-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+}
+
+.connect-group {
+  margin-bottom: 20px;
+}
+
+.connect-group:last-child {
+  margin-bottom: 0;
+}
+
+.connect-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 10px;
+}
+
+.connect-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  background: var(--card-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--ink);
+  transition: all 0.15s;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.chip .ar {
+  font-family: var(--arab);
+  font-size: 17px;
+  line-height: 1;
+}
+
+.chip .name {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.chip .desc {
+  font-size: 11px;
+  color: var(--ink-mute);
+  border-left: 1px solid var(--border);
+  padding-left: 8px;
+}
+
+/* === Learning path === */
+.path-card {
+  background: linear-gradient(135deg, #EEF0FF 0%, #F5F0FF 100%);
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 1px solid var(--border-soft);
+}
+
+.path-flow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.path-node {
+  font-style: italic;
+  font-weight: 600;
+  padding: 8px 14px;
+  background: var(--card);
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.path-node.current {
+  background: var(--accent);
+  color: white;
+}
+
+.path-arrow {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* === Footer === */
+.footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  font-size: 12px;
+  color: var(--ink-mute);
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+/* === Prototype notice === */
+.notice-banner {
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--option-fg);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notice-banner strong {
+  font-weight: 700;
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">م</div>
+      <span>Miftāḥ</span>
+    </div>
+    <div class="search-bar">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" placeholder="Begriff suchen…" disabled>
+    </div>
+    <nav class="topbar-nav">
+      <button>Lexikon</button>
+      <button>Themen</button>
+      <button>Lernpfade</button>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+
+  <main class="main">
+
+    <div class="notice-banner">
+      <strong>Prototyp:</strong> Vorschau mit einem Lemma. Die vollständige Version enthält sechs Lemmata und alle Funktionen.
+    </div>
+
+    <div class="breadcrumb">
+      <a href="#">Lexikon</a>
+      <span class="sep">/</span>
+      <a href="#">T</a>
+      <span class="sep">/</span>
+      <span>Taqwā</span>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-main">
+        <div class="hero-text">
+          <h1>Taqwā</h1>
+          <div class="pron">[taqˈwaː] · Nomen femininum</div>
+          <div class="hero-meta">
+            <span class="tag">Spiritualität</span>
+            <span class="tag">Glaubensethik</span>
+            <span class="tag">Quranische Begriffe</span>
+          </div>
+        </div>
+        <div class="hero-arab">تَقْوَى</div>
+      </div>
+
+      <div class="quick-stats">
+        <div class="qstat">
+          <span class="qstat-label">Wurzel</span>
+          <span class="qstat-value"><span class="ar">و-ق-ي</span>w-q-y</span>
+        </div>
+        <div class="qstat">
+          <span class="qstat-label">Kernbedeutung</span>
+          <span class="qstat-value">Gottesbewusstsein</span>
+        </div>
+        <div class="qstat">
+          <span class="qstat-label">Verbalform</span>
+          <span class="qstat-value">VIII (ittaqā / yattaqī)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <span class="toolbar-title">Module · 8</span>
+      <div class="filter-pills" role="tablist">
+        <button class="active" onclick="setFilter('alle', this)">Alle</button>
+        <button onclick="setFilter('pflicht', this)">Nur Pflicht</button>
+      </div>
+    </div>
+
+    <!-- MODULE CARDS -->
+    <div class="modules">
+
+      <article class="mod-card" data-type="pflicht" id="m1">
+        <div class="mod-head">
+          <div class="mod-head-left">
+            <div class="mod-num">1</div>
+            <h3 class="mod-title">Form und Erschließung</h3>
+          </div>
+          <span class="mod-badge pflicht">Pflicht</span>
+        </div>
+        <div class="mod-body">
+          <dl class="form-grid">
+            <dt>Arabisch</dt>
+            <dd><span class="arab">تَقْوَى</span></dd>
+            <dt>Umschrift (DMG)</dt>
+            <dd><span class="term">Taqwā</span></dd>
+            <dt>Aussprache</dt>
+            <dd><span class="mono">[taqˈwaː]</span></dd>
+            <dt>Grammatik</dt>
+            <dd>Nomen femininum; Verbalnomen (<span class="term">maṣdar</span>) der achten Verbalform</dd>
+            <dt>Wurzel</dt>
+            <dd><span class="ar-inline">و-ق-ي</span> (w-q-y) · Grundbedeutung: schützen, bewahren, hüten</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="mod-card" data-type="pflicht" id="m2">
+        <div class="mod-head">
+          <div class="mod-head-left">
+            <div class="mod-num">2</div>
+            <h3 class="mod-title">Kernbedeutung</h3>
+          </div>
+          <span class="mod-badge pflicht">Pflicht</span>
+        </div>
+        <div class="mod-body">
+          <p><span class="term">Taqwā</span> bezeichnet eine bewusste, durch Demut und Achtsamkeit gegenüber Gott geprägte Lebenshaltung. Die geläufige Übersetzung <span class="translation">„Gottesfurcht"</span> erfasst nur einen Teilaspekt und kann durch die christliche Konnotation der Furcht in die Irre führen. Präziser sind <span class="translation">„Gottesbewusstsein"</span> oder <span class="translation">„Achtsamkeit gegenüber Gott"</span>; siehe für eine ausführliche Diskussion Modul 6.</p>
+        </div>
+      </article>
+
+      <article class="mod-card" data-type="pflicht" id="m3">
+        <div class="mod-head">
+          <div class="mod-head-left">
+            <div class="mod-num">3</div>
+            <h3 class="mod-title">Bedeutungsvarianten</h3>
+          </div>
+          <span class="mod-badge pflicht">Pflicht</span>
+        </div>
+        <div class="mod-body">
+          <p><span class="term">Taqwā</span> trägt mehrere Bedeutungsebenen, die sich in den Quellen unterschiedlich gewichten lassen.</p>
+          <p><strong>Theologisch:</strong> die innere Haltung der Verantwortung gegenüber Gott, die in jedem Augenblick präsent ist.</p>
+          <p><strong>Ethisch:</strong> die Disposition, die zwischen Erlaubtem und Verbotenem unterscheidet und zu rechtschaffenem Handeln führt.</p>
+          <p><strong>Spirituell-mystisch:</strong> in der sufischen Tradition der höchste Grad geistiger Wachsamkeit, in dem das Bewusstsein des Göttlichen das Tun durchdringt.</p>
+          <p>Diese Ebenen sind nicht trennscharf; sie überlagern sich häufig im selben Vorkommen.</p>
+        </div>
+      </article>
+
+      <article class="mod-card" data-type="option" id="m4">
+        <div class="mod-head">
+          <div class="mod-head-left">
+            <div class="mod-num">4</div>
+            <h3 class="mod-title">Kulturhistorischer Kontext</h3>
+          </div>
+          <span class="mod-badge option">Option</span>
+        </div>
+        <div class="mod-body">
+          <p><span class="term">Taqwā</span> gehört zu den am häufigsten genannten Tugenden im Quran.</p>
+
+          <div class="quran-card">
+            <div class="quran-label">Quran 49:13</div>
+            <div class="quran-text">„Der Edelste von euch bei Gott ist derjenige unter euch, der die größte Taqwā hat."</div>
+          </div>
+          <p>Hier wird <span class="term">Taqwā</span> zum einzig legitimen Kriterium menschlicher Auszeichnung erklärt, jenseits von Herkunft, Stamm oder Geschlecht.</p>
+
+          <div class="quran-card">
+            <div class="quran-label">Quran 2:2–3</div>
+            <div class="quran-text">Der Quran selbst wird als „Rechtleitung für die Gottesbewussten (al-muttaqīn)" eingeführt — Taqwā ist hier Voraussetzung für das Verstehen der Offenbarung.</div>
+          </div>
+
+          <div class="quran-card">
+            <div class="quran-label">Quran 2:183</div>
+            <div class="quran-text">Im Fastengebot wird Taqwā als Ziel des Fastens benannt: „auf dass ihr Taqwā erlangt".</div>
+          </div>
+
+          <p>In der prophetischen Tradition steht der bekannte Hadith, in dem der Prophet auf sein Herz deutet und sagt: „Die Frömmigkeit ist hier" (überliefert bei Muslim). Bei al-Ghazālī (gest. 1111) gilt <span class="term">Taqwā</span> als die Wurzel aller anderen Tugenden.</p>
+        </div>
+      </article>
+
+      <article class="mod-card" data-type="option" id="m5">
+        <div class="mod-head">
+          <div class="mod-head-left">
+            <div class="mod-num">5</div>
+            <h3 class="mod-title">Gebrauchspragmatik</h3>
+          </div>
+          <span class="mod-badge option">Option</span>
+        </div>
+        <div class="mod-body">
+          <p>In modernen Predigten gehört <span class="term">Taqwā</span> zum festen Vokabular; in Gesprächen unter Muslimen wird die Frage „Hast du Taqwā?" oft als ethische Erinnerung verwendet, vergleichbar mit dem deutschen „Sei achtsam".</p>
+          <p>Deutsche Wiedergaben variieren stark: <span class="translation">„Gottesfurcht"</span>, <span class="translation">„Gottesbewusstsein"</span>, <span class="translation">„Gottesehrfurcht"</span> und <span class="translation">„Frömmigkeit"</span> werden parallel benutzt. Diese Vielfalt ist kein Zufall, sondern Ausdruck der Schwierigkeit, den Begriff in einer einzigen deutschen Vokabel zu fassen.</p>
+          <p><strong>Typische Missverständnisse:</strong> <span class="term">Taqwā</span> wird gelegentlich mit reiner Angst, mit Schuldbewusstsein oder mit asketischer Strenge verwechselt. Im arabischen Konzept liegt das Gewicht jedoch nicht auf der Angst, sondern auf der Wachsamkeit.</p>
+        </div>
+      </article>
+
+      <article class="mod-card" data-type="option" id="m6">
+        <div class="mod-head">
+          <div class="mod-head-left">
+            <div class="mod-num">6</div>
+            <h3 class="mod-title">Äquivalenz und Übersetzung</h3>
+          </div>
+          <span class="mod-badge option">Option</span>
+        </div>
+        <div class="mod-body">
+          <p>Die deutsche Wiedergabe von <span class="term">Taqwā</span> steht beispielhaft für das in dieser Konzeption zentrale Äquivalenzproblem.</p>
+          <div class="equiv-list">
+            <div class="equiv-row">
+              <span class="equiv-name">Gottesfurcht</span>
+              <span class="equiv-desc">trifft Ehrfurcht, übernimmt aber die christliche Furcht-Konnotation</span>
+              <span class="equiv-rating bad">Missverständlich</span>
+            </div>
+            <div class="equiv-row">
+              <span class="equiv-name">Gottesbewusstsein</span>
+              <span class="equiv-desc">trifft Bewusstheit, weniger die ethische Verbindlichkeit</span>
+              <span class="equiv-rating mid">Brauchbar</span>
+            </div>
+            <div class="equiv-row">
+              <span class="equiv-name">Gottesehrfurcht</span>
+              <span class="equiv-desc">balanciert Ehrfurcht und Wachsamkeit</span>
+              <span class="equiv-rating good">Idiomatisch</span>
+            </div>
+            <div class="equiv-row">
+              <span class="equiv-name">Achtsamkeit gegenüber Gott</span>
+              <span class="equiv-desc">umschreibend, präzise, aber sperrig</span>
+              <span class="equiv-rating good">Analytisch klar</span>
+            </div>
+          </div>
+          <p>Im Sinne der Äquivalenztypologie (Zgusta, 1971) handelt es sich in keinem Fall um Volläquivalenz. Die Wurzel <span class="ar-inline">و-ق-ي</span> trägt nicht primär die Bedeutung des „Fürchtens", sondern die des „Hütens" und „Bewahrens": <span class="term">Taqwā</span> ist im Kern eine <em>behütende</em> Haltung.</p>
+        </div>
+      </article>
+
+      <article class="mod-card" data-type="option" id="m7">
+        <div class="mod-head">
+          <div class="mod-head-left">
+            <div class="mod-num">7</div>
+            <h3 class="mod-title">Beispiele und Szenarien</h3>
+          </div>
+          <span class="mod-badge option">Option</span>
+        </div>
+        <div class="mod-body">
+          <p>Drei kontrastive Szenarien zeigen, in welchen Kontexten welche Bedeutungsfacette aktiviert wird.</p>
+          <div class="examples">
+            <div class="ex-card">
+              <span class="ex-context">Im Gebet</span>
+              <div class="ex-body"><span class="term">Taqwā</span> meint die innere Wachsamkeit dafür, dass man vor Gott steht — nicht das Auswendiglernen der Bewegungen, sondern die Präsenz des Bewusstseins im Vollzug.</div>
+            </div>
+            <div class="ex-card">
+              <span class="ex-context">Im sozialen Handeln</span>
+              <div class="ex-body"><span class="term">Taqwā</span> zeigt sich als ethischer Anker im Umgang mit anderen, etwa in der Verlässlichkeit beim Versprechen.</div>
+            </div>
+            <div class="ex-card">
+              <span class="ex-context">Im Ramadan</span>
+              <div class="ex-body">Das Fasten ist nach Quran 2:183 selbst ein Übungsfeld für <span class="term">Taqwā</span>; das Aussetzen sinnlicher Reize schult die Wachsamkeit für den Alltag.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="mod-card" data-type="option" id="m8">
+        <div class="mod-head">
+          <div class="mod-head-left">
+            <div class="mod-num">8</div>
+            <h3 class="mod-title">Vernetzung</h3>
+          </div>
+          <span class="mod-badge option">Option</span>
+        </div>
+        <div class="mod-body">
+
+          <div class="connect-group">
+            <div class="connect-label">Kohyponyme · Verwandte religiös-ethische Begriffe</div>
+            <div class="connect-chips">
+              <span class="chip"><span class="ar">إِيمَان</span><span class="name">Īmān</span><span class="desc">Glaube</span></span>
+              <span class="chip"><span class="ar">إِحْسَان</span><span class="name">Iḥsān</span><span class="desc">Vorbildliches Tun</span></span>
+              <span class="chip"><span class="ar">خُشُوع</span><span class="name">Khushūʿ</span><span class="desc">Demut im Gebet</span></span>
+            </div>
+          </div>
+
+          <div class="connect-group">
+            <div class="connect-label">Antonym</div>
+            <div class="connect-chips">
+              <span class="chip"><span class="ar">غَفْلَة</span><span class="name">Ghafla</span><span class="desc">Achtlosigkeit</span></span>
+            </div>
+          </div>
+
+          <div class="connect-group">
+            <div class="connect-label">Etymologische Verwandte · Wurzel w-q-y</div>
+            <div class="connect-chips">
+              <span class="chip"><span class="ar">مُتَّقِي</span><span class="name">Muttaqī</span><span class="desc">der Gottesbewusste</span></span>
+              <span class="chip"><span class="ar">اِتِّقَاء</span><span class="name">Ittiqāʾ</span><span class="desc">das Sich-Hüten</span></span>
+            </div>
+          </div>
+
+          <div class="path-card">
+            <div class="connect-label">Lernpfad · Innere Spiritualität</div>
+            <div class="path-flow">
+              <span class="path-node current">Taqwā</span>
+              <span class="path-arrow">→</span>
+              <span class="path-node">Iḥsān</span>
+              <span class="path-arrow">→</span>
+              <span class="path-node">Khushūʿ</span>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+    </div>
+
+  </main>
+
+  <!-- ASIDE -->
+  <aside class="aside">
+
+    <div class="aside-card">
+      <div class="aside-title">Module · Sprungnavigation</div>
+      <ol class="nav-list">
+        <li><a href="#m1"><span class="nav-num">1</span>Form und Erschließung<span class="nav-dot pflicht"></span></a></li>
+        <li><a href="#m2"><span class="nav-num">2</span>Kernbedeutung<span class="nav-dot pflicht"></span></a></li>
+        <li><a href="#m3"><span class="nav-num">3</span>Bedeutungsvarianten<span class="nav-dot pflicht"></span></a></li>
+        <li><a href="#m4"><span class="nav-num">4</span>Kulturhistorischer Kontext<span class="nav-dot"></span></a></li>
+        <li><a href="#m5"><span class="nav-num">5</span>Gebrauchspragmatik<span class="nav-dot"></span></a></li>
+        <li><a href="#m6"><span class="nav-num">6</span>Äquivalenz<span class="nav-dot"></span></a></li>
+        <li><a href="#m7"><span class="nav-num">7</span>Beispiele<span class="nav-dot"></span></a></li>
+        <li><a href="#m8"><span class="nav-num">8</span>Vernetzung<span class="nav-dot"></span></a></li>
+      </ol>
+    </div>
+
+    <div class="aside-card">
+      <div class="aside-title">Verwandte Lemmata</div>
+      <ol class="nav-list">
+        <li><a href="#"><span class="nav-num" style="font-family: var(--arab); font-size: 11px;">ز</span>Zakāt</a></li>
+        <li><a href="#"><span class="nav-num" style="font-family: var(--arab); font-size: 11px;">إ</span>Īmān</a></li>
+        <li><a href="#"><span class="nav-num" style="font-family: var(--arab); font-size: 11px;">ص</span>Ṣadaqa</a></li>
+        <li><a href="#"><span class="nav-num" style="font-family: var(--arab); font-size: 11px;">ص</span>Ṣalāh</a></li>
+        <li><a href="#"><span class="nav-num" style="font-family: var(--arab); font-size: 11px;">د</span>Dīn</a></li>
+      </ol>
+    </div>
+
+  </aside>
+
+  <footer class="footer">
+    Miftāḥ · Prototyp eines erklärend-enzyklopädischen Wörterbuchs · Ahmed Shaita 2026
+  </footer>
+
+</div>
+
+<script>
+function setFilter(mode, button) {
+  document.body.classList.remove('filter-alle', 'filter-pflicht');
+  document.body.classList.add('filter-' + mode);
+  document.querySelectorAll('.filter-pills button').forEach(b => b.classList.remove('active'));
+  button.classList.add('active');
+}
+</script>
+
+</body>
+</html>
