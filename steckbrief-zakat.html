@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zakāt — Steckbrief zur Befüllung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F8FB; --card: #FFFFFF; --card-soft: #FAFBFD;
+  --ink: #0F172A; --ink-soft: #475569; --ink-mute: #94A3B8;
+  --border: #E2E8F0; --border-soft: #EEF2F7;
+  --accent: #4F46E5; --accent-soft: #EEF0FF;
+  --pflicht-bg: #4F46E5; --pflicht-fg: #FFFFFF;
+  --option-bg: #FEF3C7; --option-fg: #92400E;
+  --status-ok-bg: #DCFCE7; --status-ok-fg: #166534;
+  --status-warn-bg: #FEF3C7; --status-warn-fg: #854D0E;
+  --status-todo-bg: #FEE2E2; --status-todo-fg: #991B1B;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 1px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --radius: 14px; --radius-lg: 20px;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --arab: 'Amiri', 'Traditional Arabic', serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.005em;
+}
+.shell { max-width: 980px; margin: 0 auto; padding: 32px 24px 80px; }
+@media (max-width: 700px) { .shell { padding: 16px 14px 60px; } }
+
+/* === HERO === */
+.hero {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+}
+.hero-doctype {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 6px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.hero-main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  position: relative;
+}
+@media (max-width: 600px) { .hero-main { grid-template-columns: 1fr; } }
+.hero-title { font-size: 44px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 8px; }
+.hero-sub { font-size: 15px; color: var(--ink-mute); font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
+.hero-arab { font-family: var(--arab); font-size: 80px; line-height: 1; direction: rtl; text-align: right; }
+@media (max-width: 600px) { .hero-arab { font-size: 60px; text-align: center; } }
+
+/* === LEGEND === */
+.legend {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+}
+.legend-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-right: 8px;
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.legend-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.legend-badge.ok { background: var(--status-ok-bg); color: var(--status-ok-fg); }
+.legend-badge.warn { background: var(--status-warn-bg); color: var(--status-warn-fg); }
+.legend-badge.todo { background: var(--status-todo-bg); color: var(--status-todo-fg); }
+
+/* === MODULE CARDS === */
+.modules { display: grid; gap: 16px; }
+.mod-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+}
+.mod-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.mod-head-left { display: flex; align-items: center; gap: 14px; }
+.mod-num {
+  width: 32px; height: 32px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 10px;
+  display: grid; place-items: center;
+  font-size: 14px; font-weight: 700;
+}
+.mod-title { font-size: 17px; font-weight: 600; letter-spacing: -0.015em; }
+.mod-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 4px 9px; border-radius: 6px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.mod-badge.pflicht { background: var(--pflicht-bg); color: var(--pflicht-fg); }
+.mod-badge.option { background: var(--option-bg); color: var(--option-fg); }
+
+.mod-body p { margin-bottom: 12px; line-height: 1.6; }
+.mod-body p:last-child { margin-bottom: 0; }
+.mod-body strong { font-weight: 600; }
+
+/* === DATA TABLE === */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 8px 0 16px;
+  font-size: 14px;
+}
+.data-table tr { background: var(--card-soft); }
+.data-table tr:nth-child(odd) { background: white; }
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: middle;
+}
+.data-table td:first-child {
+  color: var(--ink-mute);
+  font-weight: 500;
+  width: 35%;
+}
+.data-table td:last-child { text-align: right; padding-right: 10px; }
+.data-table .ar { font-family: var(--arab); font-size: 19px; }
+.data-table .term { font-style: italic; font-weight: 500; }
+.data-table .mono { font-family: ui-monospace, monospace; font-size: 13px; }
+
+.status-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.status-badge.ok { background: var(--status-ok-bg); color: var(--status-ok-fg); }
+.status-badge.warn { background: var(--status-warn-bg); color: var(--status-warn-fg); }
+.status-badge.todo { background: var(--status-todo-bg); color: var(--status-todo-fg); }
+
+/* === TODO BOX === */
+.todo-box {
+  background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+  border-left: 4px solid var(--status-todo-fg);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 16px;
+}
+.todo-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--status-todo-fg);
+  margin-bottom: 8px;
+}
+.todo-list { list-style: none; padding-left: 0; }
+.todo-list li {
+  padding: 4px 0 4px 22px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.todo-list li::before {
+  content: '□';
+  position: absolute;
+  left: 0;
+  color: var(--status-todo-fg);
+  font-weight: 700;
+}
+
+/* === BEDEUTUNGSVARIANTEN === */
+.var-list { display: grid; gap: 10px; margin: 8px 0; }
+.var-item {
+  padding: 12px 16px;
+  background: var(--card-soft);
+  border-radius: 10px;
+  border-left: 3px solid var(--accent);
+}
+.var-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.var-text { font-size: 14px; line-height: 1.55; color: var(--ink); }
+
+/* === EQUIV TABLE === */
+.equiv-list { display: grid; gap: 10px; margin: 8px 0; }
+.equiv-row {
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  gap: 16px;
+  padding: 12px 14px;
+  background: var(--card-soft);
+  border-radius: 10px;
+  align-items: center;
+  font-size: 14px;
+}
+@media (max-width: 700px) { .equiv-row { grid-template-columns: 1fr; gap: 8px; } }
+.equiv-name { font-style: italic; font-weight: 600; }
+.equiv-desc { color: var(--ink-soft); line-height: 1.5; }
+.equiv-rating {
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 6px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  text-align: center; white-space: nowrap;
+}
+.equiv-rating.good { background: var(--status-ok-bg); color: var(--status-ok-fg); }
+.equiv-rating.mid { background: var(--status-warn-bg); color: var(--status-warn-fg); }
+.equiv-rating.bad { background: var(--status-todo-bg); color: var(--status-todo-fg); }
+.equiv-rating.pending { background: var(--border-soft); color: var(--ink-mute); }
+
+/* === CONNECT === */
+.connect-group { margin: 12px 0; }
+.connect-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 8px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--card-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+}
+.chip .ar { font-family: var(--arab); font-size: 16px; }
+.chip .name { font-style: italic; font-weight: 500; }
+.chip .desc { font-size: 11px; color: var(--ink-mute); }
+
+/* === SUMMARY === */
+.summary-card {
+  background: linear-gradient(135deg, #EEF0FF 0%, #F5F0FF 100%);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-top: 24px;
+  border: 1px solid var(--border-soft);
+}
+.summary-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.summary-text { font-size: 15px; line-height: 1.6; color: var(--ink); }
+.summary-text strong { font-weight: 700; }
+
+.term { font-style: italic; font-weight: 500; }
+.ar-inline {
+  font-family: var(--arab);
+  font-size: 1.15em;
+  vertical-align: -1px;
+  direction: rtl;
+  display: inline-block;
+  unicode-bidi: isolate;
+}
+
+.note {
+  background: var(--card-soft);
+  border-left: 3px solid var(--ink-mute);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 10px 0;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.5;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  font-size: 12px;
+  color: var(--ink-mute);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-doctype">Steckbrief zur Befüllung</span>
+    <div class="hero-main">
+      <div>
+        <h1 class="hero-title">Zakāt</h1>
+        <div class="hero-sub">[zaˈkaːh] · Nomen femininum · Pflichtabgabe</div>
+      </div>
+      <div class="hero-arab">زَكَاة</div>
+    </div>
+  </section>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <span class="legend-title">Legende</span>
+    <span class="legend-item"><span class="legend-badge ok">✓ Verifiziert</span>aus Materialien gesichert</span>
+    <span class="legend-item"><span class="legend-badge warn">⚠ Zu prüfen</span>plausibel, aber gegen Quelle gegenprüfen</span>
+    <span class="legend-item"><span class="legend-badge todo">📝 Zu liefern</span>von dir beizubringen</span>
+  </div>
+
+  <!-- MODULE -->
+  <div class="modules">
+
+    <!-- MODUL 1 -->
+    <article class="mod-card">
+      <div class="mod-head">
+        <div class="mod-head-left">
+          <div class="mod-num">1</div>
+          <h2 class="mod-title">Form und Erschließung</h2>
+        </div>
+        <span class="mod-badge pflicht">Pflicht</span>
+      </div>
+      <table class="data-table">
+        <tr><td>Arabisch</td><td><span class="ar">زَكَاة</span></td><td><span class="status-badge ok">✓ Verifiziert</span></td></tr>
+        <tr><td>Umschrift (DMG)</td><td><span class="term">Zakāt</span></td><td><span class="status-badge ok">✓ Verifiziert</span></td></tr>
+        <tr><td>Aussprache</td><td><span class="mono">[zaˈkaːh]</span></td><td><span class="status-badge warn">⚠ Zu prüfen</span></td></tr>
+        <tr><td>Grammatik</td><td>Nomen femininum, Verbalnomen</td><td><span class="status-badge warn">⚠ Verbalform-Angabe (II/IV?)</span></td></tr>
+        <tr><td>Wurzel</td><td><span class="ar-inline">ز-ك-ي</span> (z-k-y)</td><td><span class="status-badge ok">✓ Verifiziert</span></td></tr>
+        <tr><td>Wurzelbedeutung</td><td>„rein sein, wachsen"</td><td><span class="status-badge warn">⚠ Wehr-Stelle nennen</span></td></tr>
+      </table>
+      <div class="todo-box">
+        <span class="todo-label">📝 Zu liefern</span>
+        <ul class="todo-list">
+          <li>Genaue Verbalform-Klassifikation (Verbalnomen welcher Form?)</li>
+          <li>Wehr-Stelle zur Wurzelbedeutung (Seitenangabe)</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- MODUL 2 -->
+    <article class="mod-card">
+      <div class="mod-head">
+        <div class="mod-head-left">
+          <div class="mod-num">2</div>
+          <h2 class="mod-title">Kernbedeutung</h2>
+        </div>
+        <span class="mod-badge pflicht">Pflicht</span>
+      </div>
+      <p>Aus Kap. 5.4.3 wissen wir bereits die Doppelnatur: <strong>die festgelegte religiöse Pflichtabgabe, durch die zugleich das Vermögen geläutert wird.</strong> Die Übersetzung „Almosen" verfehlt den Pflichtcharakter; „Pflichtabgabe" allein lässt die spirituelle Dimension der Läuterung aus.</p>
+      <div class="todo-box">
+        <span class="todo-label">📝 Zu liefern</span>
+        <ul class="todo-list">
+          <li>Eine knappe, von dir formulierte Definition (2–3 Sätze) im Sprachregister der Zielgruppe — vergleichbar mit der Taqwā-Definition</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- MODUL 3 -->
+    <article class="mod-card">
+      <div class="mod-head">
+        <div class="mod-head-left">
+          <div class="mod-num">3</div>
+          <h2 class="mod-title">Bedeutungsvarianten</h2>
+        </div>
+        <span class="mod-badge pflicht">Pflicht</span>
+      </div>
+      <p>Drei Lesarten, in Kap. 5.4.3 schon skizziert:</p>
+      <div class="var-list">
+        <div class="var-item">
+          <span class="var-label">Theologisch</span>
+          <div class="var-text">Reinigung des Vermögens; Akt der Anerkennung, dass aller Besitz von Gott kommt. <span class="status-badge ok">✓ Verifiziert</span></div>
+        </div>
+        <div class="var-item">
+          <span class="var-label">Rechtlich (fiqh)</span>
+          <div class="var-text">Festgelegte Pflichtabgabe einer bestimmten Quote (klassisch 2,5 % bei Geldvermögen) des Besitzes an festgelegte Empfängerkategorien, fällig nach Erreichen des Mindestvermögens (<span class="term">Niṣāb</span>) und nach Ablauf eines Mondjahres (<span class="term">Ḥaul</span>). <span class="status-badge warn">⚠ Quote prüfen</span></div>
+        </div>
+        <div class="var-item">
+          <span class="var-label">Alltagssprachlich</span>
+          <div class="var-text">Häufig undifferenziert als „Spende" verwendet, oft verwechselt mit <span class="term">Ṣadaqa</span>. <span class="status-badge ok">✓ aus Kap. 4 belegt</span></div>
+        </div>
+      </div>
+      <div class="todo-box">
+        <span class="todo-label">📝 Zu liefern</span>
+        <ul class="todo-list">
+          <li>Quoten- und Niṣāb-Angaben gegen eine Rechtsschule verifizieren</li>
+          <li>Bei rechtsschulübergreifenden Unterschieden: kurzer Hinweis darauf, welche Tradition gewählt wird</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- MODUL 4 -->
+    <article class="mod-card">
+      <div class="mod-head">
+        <div class="mod-head-left">
+          <div class="mod-num">4</div>
+          <h2 class="mod-title">Kulturhistorischer Kontext</h2>
+        </div>
+        <span class="mod-badge option">Option</span>
+      </div>
+      <div class="note">
+        Hier ist die Lücke am größten. Aus den Materialien wissen wir nur, dass <span class="term">Zakāt</span> eine der fünf Säulen ist.
+      </div>
+      <div class="todo-box">
+        <span class="todo-label">📝 Zu liefern</span>
+        <ul class="todo-list">
+          <li>Drei zentrale Quranverse zu Zakāt mit Standardübersetzung (Bobzin / Khoury / Paret)</li>
+          <li>Vorschläge zur Auswahl: Quran 9:60 (acht Empfängerkategorien), Quran 2:43 (Verbindung Ṣalāh + Zakāt), Quran 9:103 (Läuterungsfunktion) — bitte selbst prüfen und entscheiden</li>
+          <li>Mindestens ein Hadith mit Sammlungs- und Stellenangabe (z. B. Ṣaḥīḥ al-Buḫārī, Kitāb az-Zakāt, oder Ṣaḥīḥ Muslim)</li>
+          <li>Ein wirkungsgeschichtlicher Verweis (al-Ghazālī, Iḥyāʾ, Kapitel über Zakāt) mit Ausgabenangabe</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- MODUL 5 -->
+    <article class="mod-card">
+      <div class="mod-head">
+        <div class="mod-head-left">
+          <div class="mod-num">5</div>
+          <h2 class="mod-title">Gebrauchspragmatik</h2>
+        </div>
+        <span class="mod-badge option">Option</span>
+      </div>
+      <div class="note">
+        Aus Kap. 4 ist bekannt: Konvertierte verwechseln Zakāt häufig mit <span class="term">Ṣadaqa</span> (TN 2, 6, 11, 13).
+      </div>
+      <div class="todo-box">
+        <span class="todo-label">📝 Zu liefern</span>
+        <ul class="todo-list">
+          <li>Wie wird Zakāt in deutschen Moscheegemeinden praktiziert? (über Zakāt-Stiftungen, individuell, im Ramadan)</li>
+          <li>Welche typischen Missverständnisse begegnen Konvertierten neben der Sadaqa-Verwechslung?</li>
+          <li>Konkrete Beispiel-Formulierungen aus dem Sprachgebrauch — wie sagt man „Ich habe meine Zakāt gegeben"?</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- MODUL 6 -->
+    <article class="mod-card">
+      <div class="mod-head">
+        <div class="mod-head-left">
+          <div class="mod-num">6</div>
+          <h2 class="mod-title">Äquivalenz und Übersetzung</h2>
+        </div>
+        <span class="mod-badge option">Option</span>
+      </div>
+      <p>Aus Kap. 5.4.6 ist die Bewertungstabelle schon halb fertig:</p>
+      <div class="equiv-list">
+        <div class="equiv-row">
+          <span class="equiv-name">Almosen</span>
+          <span class="equiv-desc">deutsches Konzept individueller Großzügigkeit ohne Verpflichtungscharakter</span>
+          <span class="equiv-rating bad">Irreführend</span>
+        </div>
+        <div class="equiv-row">
+          <span class="equiv-name">Pflichtabgabe</span>
+          <span class="equiv-desc">trifft den Pflichtcharakter, lässt die spirituelle Läuterung aus</span>
+          <span class="equiv-rating mid">Brauchbar</span>
+        </div>
+        <div class="equiv-row">
+          <span class="equiv-name">Alms-Tax (eslam.de)</span>
+          <span class="equiv-desc">Steuermetapher überdeckt die theologische Dimension</span>
+          <span class="equiv-rating bad">Problematisch</span>
+        </div>
+        <div class="equiv-row">
+          <span class="equiv-name" style="color: var(--ink-mute);">[vierte Wiedergabe?]</span>
+          <span class="equiv-desc" style="color: var(--ink-mute);">z. B. „Vermögensreinigungsabgabe" oder „Pflichtspende zur Läuterung" — von dir zu entscheiden</span>
+          <span class="equiv-rating pending">offen</span>
+        </div>
+      </div>
+      <div class="todo-box">
+        <span class="todo-label">📝 Zu liefern</span>
+        <ul class="todo-list">
+          <li>Entscheidung über eine vierte, analytisch klare Wiedergabe</li>
+          <li>Etymologische Pointe wie bei Taqwā (Wurzel z-k-y „rein sein, wachsen" → die Reinigung steckt im Wort)</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- MODUL 7 -->
+    <article class="mod-card">
+      <div class="mod-head">
+        <div class="mod-head-left">
+          <div class="mod-num">7</div>
+          <h2 class="mod-title">Beispiele und Szenarien</h2>
+        </div>
+        <span class="mod-badge option">Option</span>
+      </div>
+      <div class="todo-box">
+        <span class="todo-label">📝 Zu liefern</span>
+        <ul class="todo-list">
+          <li>Drei kontrastive Szenarien (wie bei Taqwā: „Im Gebet", „Im sozialen Handeln", „Im Ramadan")</li>
+          <li>Vorschläge: Zakāt al-Māl vs. Zakāt al-Fiṭr — Zakāt im Ramadan vs. ganzjährig — Zakāt als individuelle Pflicht vs. organisierte Verteilung</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- MODUL 8 -->
+    <article class="mod-card">
+      <div class="mod-head">
+        <div class="mod-head-left">
+          <div class="mod-num">8</div>
+          <h2 class="mod-title">Vernetzung</h2>
+        </div>
+        <span class="mod-badge option">Option</span>
+      </div>
+      <div class="connect-group">
+        <div class="connect-label">Antonym / Kontrast</div>
+        <div class="chips">
+          <span class="chip"><span class="ar">صَدَقَة</span><span class="name">Ṣadaqa</span><span class="desc">freiwillig vs. Pflicht</span></span>
+        </div>
+      </div>
+      <div class="connect-group">
+        <div class="connect-label">Kohyponyme · Fünf Säulen</div>
+        <div class="chips">
+          <span class="chip"><span class="ar">صَلَاة</span><span class="name">Ṣalāh</span><span class="desc">Pflichtgebet</span></span>
+          <span class="chip"><span class="ar">صَوْم</span><span class="name">Ṣawm</span><span class="desc">Fasten</span></span>
+          <span class="chip"><span class="ar">حَجّ</span><span class="name">Ḥajj</span><span class="desc">Pilgerfahrt</span></span>
+          <span class="chip"><span class="ar">شَهَادَة</span><span class="name">Šahāda</span><span class="desc">Glaubensbekenntnis</span></span>
+        </div>
+      </div>
+      <div class="connect-group">
+        <div class="connect-label">Etymologische Verwandte · Wurzel z-k-y</div>
+        <div class="chips">
+          <span class="chip"><span class="ar">تَزْكِيَة</span><span class="name">Tazkiya</span><span class="desc">Reinigung der Seele</span></span>
+        </div>
+      </div>
+      <div class="connect-group">
+        <div class="connect-label">Untergeordnete Begriffe</div>
+        <div class="chips">
+          <span class="chip"><span class="ar">نِصَاب</span><span class="name">Niṣāb</span><span class="desc">Mindestvermögen</span></span>
+          <span class="chip"><span class="ar">حَوْل</span><span class="name">Ḥaul</span><span class="desc">Wartezeit (Mondjahr)</span></span>
+          <span class="chip"><span class="ar">مُسْتَحِقّ</span><span class="name">Mustaḥiqq</span><span class="desc">Empfänger</span></span>
+        </div>
+      </div>
+      <div class="todo-box">
+        <span class="todo-label">📝 Zu liefern</span>
+        <ul class="todo-list">
+          <li>Verifikation der acht Empfängerkategorien aus Quran 9:60</li>
+          <li>Entscheidung: Werden Niṣāb, Ḥaul, Mustaḥiqq als eigene Lemmata im erweiterten Korpus aufgenommen?</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-card">
+    <div class="summary-title">Zusammenfassung</div>
+    <p class="summary-text">Aus den vorhandenen Materialien sind etwa <strong>40–50 % des Eintrags</strong> strukturell vorbereitet. Den substanziellen Rest musst du beibringen, vor allem für <strong>Module 4 (Quran/Hadith), 5 (Pragmatik) und 7 (Szenarien)</strong>. Sobald die Lücken gefüllt sind, kann der Eintrag direkt in den Miftāḥ-Prototyp eingepflegt werden, im gleichen Layout wie das Lemma Taqwā.</p>
+  </div>
+
+  <footer class="footer">
+    Miftāḥ · Steckbrief Zakāt · Ahmed Shaita 2026
+  </footer>
+
+</div>
+
+</body>
+</html>
